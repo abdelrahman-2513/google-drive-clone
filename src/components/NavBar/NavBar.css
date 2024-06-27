@@ -1,0 +1,67 @@
+.nav-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.my-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+li a {
+  font-size: smaller;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+li {
+  width: 100%;
+  border-radius: 0.5em;
+  padding: 5px;
+}
+li:hover {
+  background-color: var(--color-card);
+}
+.active {
+  background-color: var(--color-active);
+}
+.progress-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  font-weight: 400;
+  font-size: small;
+}
+
+.progress-chart .title {
+  display: flex;
+  gap: 10px;
+  color: var(--text-color);
+}
+.progress-chart .data {
+  color: var(--text-color);
+}
+progress {
+  width: 100%;
+  height: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e0e0e0; /* Background color of the progress bar */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-value {
+  background-color: #3e8feb; /* Baby blue color */
+  border-radius: 8px 0 0 8px; /* Rounded corners on the left side */
+}
+
+progress::-moz-progress-bar {
+  background-color: #89cff0; /* Baby blue color */
+  border-radius: 8px 0 0 8px; /* Rounded corners on the left side */
+}

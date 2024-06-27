@@ -1,0 +1,22 @@
+.small-menu1 {
+  position: absolute;
+  border-radius: 5px;
+  background: white;
+  top: 75%;
+  left: 86%;
+  z-index: 5;
+  width: 200px;
+  box-shadow: 0px 1px 2px 0px gray;
+  color: var(--color-primary);
+}
+.small-menu1 li {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  font-size: small;
+  padding: 10px;
+  align-items: center;
+}
+.small-menu1 svg {
+  font-size: small;
+}

@@ -1,0 +1,25 @@
+.small-menu {
+  position: absolute;
+  border-radius: 5px;
+  background: white;
+  top: 75%;
+  left: 0%;
+  z-index: 5;
+  width: 11em;
+  box-shadow: 0px 1px 2px 0px gray;
+  color: var(--color-primary);
+}
+.small-menu li {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  font-size: small;
+  padding: 10px;
+  align-items: center;
+}
+.small-menu svg {
+  font-size: small;
+}
+.add-btn {
+  position: relative;
+}

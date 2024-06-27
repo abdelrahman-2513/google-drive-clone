@@ -1,0 +1,129 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: 0;
+  font-family: sans-serif;
+}
+:root {
+  --color-primary: rgb(63 62 62);
+  --text-color: rgb(0, 29, 53);
+  --color-bg: #f9f9f9;
+  --color-card: #edeff5;
+  --color-soft: #ecf0f3;
+  --color-border: lightgray;
+  --color-red: red;
+  --color-active: #c3e1ed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+h3 {
+  font-weight: 400;
+}
+img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-soft);
+}
+small,
+p {
+  color: var(--color-primary);
+}
+.btn {
+  padding: 1em 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  cursor: pointer;
+  border-radius: 0.7rem;
+  background: white;
+  color: #111111;
+  /* font-size: 0.9rem; */
+  font-weight: 500;
+  transition: 0.3 ease-in-out;
+  border: 1px solid transparent;
+  box-shadow: 0px 1px 2px 0px gray;
+}
+.message {
+  position: sticky;
+  display: flex;
+  z-index: 1000;
+  background: white;
+  top: -16px;
+  height: 50px;
+  align-items: center;
+}
+.icon {
+  width: 20px;
+  height: 25px;
+}
+.btn:hover {
+  opacity: 0.7;
+}
+
+.btn-primary {
+  background: var(--color-soft);
+  color: white;
+}
+.container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 0.7em;
+  height: 88vh;
+  overflow: auto;
+}
+.container::-webkit-scrollbar {
+  display: -moz-stack;
+}
+.btn-red {
+  background: var(--color-red);
+  color: white;
+}
+.btn-soft {
+  background: var(--color-card);
+  color: var(--color-soft);
+}
+main {
+  display: grid;
+  grid-template-columns: 13% 84%;
+  gap: 3%;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 10px;
+}
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: 15% 82%;
+  }
+}
+@media (max-width: 786px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+  }
+  .container {
+    width: 100%;
+  }
+}
