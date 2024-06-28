@@ -11,6 +11,8 @@ import Home from "../../Pages/Home/Home";
 import MyDrive from "../../Pages/MyDrive/MyDrive";
 import Trash from "../../Pages/Trash/Trash";
 import Starred from "../../Pages/Starred/Starred";
+import Login from "../../Pages/Login/Login";
+import Protected from "../../components/Protected/Protected";
 
 function Layout() {
   // feed-------------------------------
@@ -33,21 +35,21 @@ function Layout() {
   const routes = [
     {
       path: "/",
-      element: <MainPage />,
+      element: <Protected children={<MainPage />} />,
 
       children: [
-        { path: "/", element: <Home /> },
-        { path: "/home", element: <Home /> },
-        { path: "/my-drive", element: <MyDrive /> },
-        { path: "/trash", element: <Trash /> },
-        { path: "/starred", element: <Starred /> },
+        { path: "/", element: <Protected children={<Home />} /> },
+        { path: "/home", element: <Protected children={<Home />} /> },
+        { path: "/my-drive", element: <Protected children={<MyDrive />} /> },
+        { path: "/trash", element: <Protected children={<Trash />} /> },
+        { path: "/starred", element: <Protected children={<Starred />} /> },
       ],
     },
 
-    // {
-    //   path: "/login",
-    //   element: <Login />,
-    // },
+    {
+      path: "/login",
+      element: <Login />,
+    },
     // { path: "*", element: <PageNotFound /> }, // Wildcard route for 404 errors
   ];
 
