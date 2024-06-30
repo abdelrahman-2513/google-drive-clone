@@ -37,6 +37,11 @@
 }
 .file-header h5 {
   font-weight: 400;
+  text-wrap: nowrap;
+}
+.file-header .name {
+  overflow: hidden;
+  width: 7em;
 }
 .file-content {
   flex: 1;
@@ -44,6 +49,8 @@
   min-width: 80%;
   border-radius: 5px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 .mini-icon {
   cursor: pointer;

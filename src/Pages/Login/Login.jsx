@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { signIn } from "../../assets/Api/API";
 import { UserAuth } from "../../context/AuthContext";
 import "./Login.css";
 

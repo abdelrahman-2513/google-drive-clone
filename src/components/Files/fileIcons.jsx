@@ -25,7 +25,7 @@ const fileIcons = {
   any: <AiFillFile />,
 };
 function GetFileIcon({ file }) {
-  return <>{fileIcons[file.type] || fileIcons["any"]}</>;
+  return <>{fileIcons[file.type.split("/")[1]] || fileIcons["any"]}</>;
 }
 
 export default GetFileIcon;

@@ -1,8 +1,8 @@
 import {
   Outlet,
-  Route,
   RouterProvider,
   createBrowserRouter,
+  useParams,
 } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
@@ -13,6 +13,7 @@ import Trash from "../../Pages/Trash/Trash";
 import Starred from "../../Pages/Starred/Starred";
 import Login from "../../Pages/Login/Login";
 import Protected from "../../components/Protected/Protected";
+import Loading from "../../components/Loading/Loading";
 
 function Layout() {
   // feed-------------------------------
@@ -54,7 +55,7 @@ function Layout() {
   ];
 
   return (
-    <Suspense fallback={<div>Loading......</div>}>
+    <Suspense fallback={<Loading load={true} />}>
       <RouterProvider router={createBrowserRouter(routes)} />
     </Suspense>
   );

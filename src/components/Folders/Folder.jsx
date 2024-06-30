@@ -5,7 +5,7 @@ function Folder({ folder }) {
   return (
     <div className="folder">
       <FaFolder className="mini-icon" />
-      <h5>{folder.name}</h5>
+      <h5>{folder.folderName}</h5>
       <Menu />
     </div>
   );

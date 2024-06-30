@@ -5,8 +5,10 @@ import { HiHome } from "react-icons/hi";
 import { BsStar } from "react-icons/bs";
 import { BiCloud, BiTrash } from "react-icons/bi";
 import { useState } from "react";
-import { CgCloud } from "react-icons/cg";
 import { TiCloudStorageOutline } from "react-icons/ti";
+import { useQuery } from "@tanstack/react-query";
+import { getStorage } from "../../assets/Api/API";
+import { UserAuth } from "../../context/AuthContext";
 
 const firstLinks = [
   {
@@ -34,6 +36,11 @@ const secondLinks = [
 ];
 const NavBar = () => {
   const [selected, setSelected] = useState("Home");
+  const { user } = UserAuth();
+  const { data } = useQuery({
+    queryKey: ["storage", user?.email],
+    queryFn: () => getStorage(user?.email),
+  });
   return (
     <div className="nav-bar">
       <AddNewBtn />
@@ -92,8 +99,8 @@ const NavBar = () => {
           <TiCloudStorageOutline className="mini-icon" />
           Storage
         </div>
-        <progress className="progress" value={20} max={100}></progress>
-        <div className="data">20GB out of 100GB</div>
+        <progress className="progress" value={data} max={100}></progress>
+        <div className="data">{data}GB out of 100GB</div>
       </div>
     </div>
   );

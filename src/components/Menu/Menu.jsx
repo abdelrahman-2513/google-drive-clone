@@ -4,7 +4,7 @@ import { BiDownload } from "react-icons/bi";
 import { BsStarFill, BsThreeDotsVertical } from "react-icons/bs";
 import { TbTrashFilled } from "react-icons/tb";
 
-function Menu() {
+function Menu({ file }) {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
@@ -15,16 +15,21 @@ function Menu() {
           onClick={() => setOpenMenu((t) => !t)}
         />
       </div>
-      {openMenu && <SmallMenu />}
+      {openMenu && <SmallMenu file={file} />}
     </>
   );
 }
 
-function SmallMenu() {
+function SmallMenu({ file }) {
   return (
     <div className="small-menu1">
       <ul>
-        <li className="last-item">Open</li>
+        <li
+          className="last-item"
+          onClick={() => window.open(file.fileLink, "_blank")}
+        >
+          Open
+        </li>
         <hr />
         <li>
           <BiDownload className="mini-icon" />

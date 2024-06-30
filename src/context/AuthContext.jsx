@@ -11,6 +11,7 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [progress, setProgress] = useState(0);
 
   const googleSignIn = () => {
     signInWithPopup(auth, provider);
@@ -32,7 +33,9 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
+    <AuthContext.Provider
+      value={{ googleSignIn, logOut, user, progress, setProgress }}
+    >
       {children}
     </AuthContext.Provider>
   );

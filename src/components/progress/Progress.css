@@ -1,0 +1,36 @@
+.progress-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 300px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  z-index: 1000;
+}
+
+.progress-bar {
+  margin-bottom: 10px;
+}
+
+.progress-bar span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.progress {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-filled {
+  background: #4caf50;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+}
