@@ -3,8 +3,10 @@ import { CgClose } from "react-icons/cg";
 import { UserAuth } from "../../context/AuthContext";
 
 import { FaSignOutAlt } from "react-icons/fa";
+import { useEffect, useRef } from "react";
 
-function UserMenu() {
+function UserMenu({ setOpen }) {
+  const menuRef = useRef();
   const { user, logOut } = UserAuth();
   const handleLogout = () => {
     try {
@@ -13,8 +15,20 @@ function UserMenu() {
       alert(err.message);
     }
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpen]);
   return (
-    <div className="small-user-menu">
+    <div className="small-user-menu" ref={menuRef}>
       <div className="container2">
         <div className="menu-header">
           <h5>{user.email}</h5>

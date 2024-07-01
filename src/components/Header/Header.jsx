@@ -19,7 +19,7 @@ export default function Header() {
         <MoreIcon setShow={SetShowApps} />
         <UserIcon />
       </div>
-      {showApps && <ItemsBox />}
+      {showApps && <ItemsBox setShowMenu={SetShowApps} />}
     </div>
   );
 }

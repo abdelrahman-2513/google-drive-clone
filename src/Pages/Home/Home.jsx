@@ -5,33 +5,43 @@ import { UserAuth } from "../../context/AuthContext";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
+import { MdOutlineNoAdultContent } from "react-icons/md";
+import { BiBookContent } from "react-icons/bi";
+import { VscNewFolder } from "react-icons/vsc";
+import NoContent from "../../components/no-content/NoContent";
 function Home() {
   const { folderId } = useParams();
   const { user } = UserAuth();
-  const { data: files, isPending: filesFetching } = useQuery({
+  const { data: files, isFetching: filesFetching } = useQuery({
     queryKey: ["files", user?.email],
     queryFn: () => getFiles(user?.email, folderId || 0),
   });
-  const { data: folders, isLoading: foldersFetching } = useQuery({
+  const { data: folders, isFetching: foldersFetching } = useQuery({
     queryKey: ["folders", user?.email],
     queryFn: () => getFolders(user?.email, folderId || 0),
   });
+
+  if (filesFetching || foldersFetching) {
+    return <Loading />;
+  }
+
   return (
     <div className="home">
       <div className="message">
         <h3>Welcome to Drive</h3>
       </div>
-      <div className="folders-content">
-        <Folders folders={folders} />
-      </div>
-      <div className="files-content">
-        <Files files={files} />
-      </div>
-      {filesFetching ||
-        (foldersFetching && (
-          <Loading load={filesFetching || foldersFetching} />
-        ))}
-      {/* <Loading load={true} /> */}
+      {(files && files.length > 0) || (folders && folders.length > 0) ? (
+        <>
+          <div className="folders-content">
+            <Folders folders={folders} />
+          </div>
+          <div className="files-content">
+            <Files files={files} />
+          </div>
+        </>
+      ) : (
+        <NoContent type={"home"} message={"Add files or folders"} />
+      )}
     </div>
   );
 }

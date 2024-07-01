@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 
 function CreateFolderPopUp({ setPopup, uploadFolder }) {
+  const menuRef = useRef();
   const { user } = UserAuth();
   const queryClient = useQueryClient();
   const [folderName, setFolderName] = useState("");
@@ -35,9 +36,21 @@ function CreateFolderPopUp({ setPopup, uploadFolder }) {
   if (mutation.isError) {
     toast.error("Please Try again later!");
   }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setPopup]);
   return (
     <div className="overlay">
-      <div className="popup">
+      <div className="popup" ref={menuRef}>
         <h3>New Folder</h3>
         <input
           type="text"

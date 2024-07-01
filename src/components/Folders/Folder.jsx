@@ -6,7 +6,7 @@ function Folder({ folder }) {
     <div className="folder">
       <FaFolder className="mini-icon" />
       <h5>{folder.folderName}</h5>
-      <Menu />
+      <Menu file={folder} />
     </div>
   );
 }

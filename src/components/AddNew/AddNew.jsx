@@ -52,7 +52,7 @@ export default function AddNewBtn() {
       isStarred: false,
       isTrashed: false,
       FileList: [],
-      folderId: randNo,
+      id: randNo,
       folderPath: folderId || 0,
       userEmail: user.email,
     };

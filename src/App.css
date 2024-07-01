@@ -127,6 +127,16 @@ a {
   flex-direction: column;
   gap: 20px;
 }
+.huge-icon {
+  font-size: 12em;
+  color: #0000008f;
+}
+.no-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 @media (max-width: 1024px) {
   main {
     grid-template-columns: 15% 82%;

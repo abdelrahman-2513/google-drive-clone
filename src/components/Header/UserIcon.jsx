@@ -8,7 +8,7 @@ export default function UserIcon() {
   return (
     <div className="user-data" onClick={() => setOpen((t) => !t)}>
       <img src={user.photoURL} alt={user.name} />
-      {open && <UserMenu />}
+      {open && <UserMenu setOpen={setOpen} />}
     </div>
   );
 }

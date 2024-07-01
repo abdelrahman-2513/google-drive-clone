@@ -67,7 +67,8 @@ export const getFiles = async (userEmail, folderId) => {
       filesCollection,
       where("userEmail", "==", userEmail),
       where("folderId", "==", folderId),
-      where("isFolder", "==", false)
+      where("isFolder", "==", false),
+      where("isTrashed", "==", false)
     );
 
     const querySnapshot = await getDocs(filesQuery);
@@ -78,6 +79,25 @@ export const getFiles = async (userEmail, folderId) => {
 };
 
 export const getFolders = async (userEmail, folderId) => {
+  let foldersCollection = collection(db, "folders");
+  let data = [];
+
+  if (userEmail) {
+    const foldersQuery = query(
+      foldersCollection,
+      where("userEmail", "==", userEmail),
+      where("folderPath", "==", folderId),
+      where("isFolder", "==", true),
+      where("isTrashed", "==", false)
+    );
+
+    const querySnapshot = await getDocs(foldersQuery);
+    data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log(data);
+    return data;
+  } else return [];
+};
+export const getStarredFiles = async (userEmail) => {
   let filesCollection = collection(db, "files");
   let data = [];
 
@@ -85,11 +105,69 @@ export const getFolders = async (userEmail, folderId) => {
     const filesQuery = query(
       filesCollection,
       where("userEmail", "==", userEmail),
-      where("folderPath", "==", folderId),
-      where("isFolder", "==", true)
+      where("isStarred", "==", true),
+      where("isFolder", "==", false),
+      where("isTrashed", "==", false)
     );
 
     const querySnapshot = await getDocs(filesQuery);
+    data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log(data);
+    return data;
+  } else return [];
+};
+
+export const getStarredFolders = async (userEmail) => {
+  let foldersCollection = collection(db, "folders");
+  let data = [];
+
+  if (userEmail) {
+    const foldersQuery = query(
+      foldersCollection,
+      where("userEmail", "==", userEmail),
+      where("isStarred", "==", true),
+      where("isFolder", "==", true),
+      where("isTrashed", "==", false)
+    );
+
+    const querySnapshot = await getDocs(foldersQuery);
+    data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log(data);
+    return data;
+  } else return [];
+};
+export const getTrashedFiles = async (userEmail) => {
+  let filesCollection = collection(db, "files");
+  let data = [];
+
+  if (userEmail) {
+    const filesQuery = query(
+      filesCollection,
+      where("userEmail", "==", userEmail),
+      where("isTrashed", "==", true),
+      where("isFolder", "==", false)
+    );
+
+    const querySnapshot = await getDocs(filesQuery);
+    data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log(data);
+    return data;
+  } else return [];
+};
+
+export const getTrashedFolders = async (userEmail) => {
+  let foldersCollection = collection(db, "folders");
+  let data = [];
+
+  if (userEmail) {
+    const foldersQuery = query(
+      foldersCollection,
+      where("userEmail", "==", userEmail),
+      where("isTrashed", "==", true),
+      where("isFolder", "==", true)
+    );
+
+    const querySnapshot = await getDocs(foldersQuery);
     data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
     console.log(data);
     return data;

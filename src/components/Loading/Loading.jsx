@@ -6,11 +6,11 @@ import {
   PacmanLoader,
 } from "react-spinners";
 
-function Loading({ load }) {
+function Loading() {
   return (
     <div className="overlay">
       <div className="loading">
-        <BounceLoader className="loading-indicator" loading={load} />
+        <BounceLoader className="loading-indicator" loading={true} />
       </div>
     </div>
   );
