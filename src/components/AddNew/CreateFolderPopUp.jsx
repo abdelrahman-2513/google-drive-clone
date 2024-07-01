@@ -14,9 +14,11 @@ function CreateFolderPopUp({ setPopup, uploadFolder }) {
     mutationKey: ["create-folder"],
     mutationFn: uploadFolder,
     onSuccess: (data) => {
+      console.log(folderId);
       queryClient.setQueryData(
-        ["folders", user?.email, folderId === null ? "0" : folderId],
+        ["folders", user?.email, folderId || "0"],
         (oldData) => {
+          console.log(data);
           let newData = [data];
           if (oldData) {
             newData = [data, ...oldData];

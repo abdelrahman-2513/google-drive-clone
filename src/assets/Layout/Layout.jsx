@@ -1,9 +1,4 @@
-import {
-  Outlet,
-  RouterProvider,
-  createBrowserRouter,
-  useParams,
-} from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import { Suspense } from "react";
@@ -37,94 +32,26 @@ function Layout() {
   const routes = [
     {
       path: "/",
-      element: (
-        <Protected
-          children={
-            <MainPage>
-              <Home />
-            </MainPage>
-          }
-        />
-      ),
+      element: <Protected children={<MainPage />} />,
 
-      // children: [
-      //   { path: "/", element: <Protected children={<Home />} /> },
-      //   { path: "/home", element: <Protected children={<Home />} /> },
-      //   { path: "/my-drive", element: <Protected children={<MyDrive />} /> },
-      //   { path: "/trash", element: <Protected children={<Trash />} /> },
-      //   { path: "/starred", element: <Protected children={<Starred />} /> },
-      //   {
-      //     path: "/folders/:folderName/:folderId",
-      //     element: <Protected children={<FolderHome />} />,
-      //   },
-      // ],
+      children: [
+        { path: "/", element: <Protected children={<Home />} /> },
+        { path: "/home", element: <Protected children={<Home />} /> },
+        { path: "/my-drive", element: <Protected children={<MyDrive />} /> },
+        { path: "/trash", element: <Protected children={<Trash />} /> },
+        { path: "/starred", element: <Protected children={<Starred />} /> },
+        {
+          path: "/folders/:folderName/:folderId",
+          element: <Protected children={<FolderHome />} />,
+        },
+      ],
     },
-    {
-      path: "/my-drive",
-      element: (
-        <Protected
-          children={
-            <MainPage>
-              <MyDrive />
-            </MainPage>
-          }
-        />
-      ),
-    },
-    {
-      path: "/trash",
-      element: (
-        <Protected
-          children={
-            <MainPage>
-              <Trash />
-            </MainPage>
-          }
-        />
-      ),
-    },
-    {
-      path: "/starred",
-      element: (
-        <Protected
-          children={
-            <MainPage>
-              <Starred />
-            </MainPage>
-          }
-        />
-      ),
-    },
-    {
-      path: "/folders/:folderName/:folderId",
-      element: (
-        <Protected
-          children={
-            <MainPage>
-              <FolderHome />
-            </MainPage>
-          }
-        />
-      ),
-    },
-    {
-      path: "/",
-      element: (
-        <Protected
-          children={
-            <MainPage>
-              <Home />
-            </MainPage>
-          }
-        />
-      ),
-    },
+
     ,
     {
       path: "/login",
       element: <Login />,
     },
-    // { path: "*", element: <PageNotFound /> }, // Wildcard route for 404 errors
   ];
 
   return (
