@@ -23,7 +23,7 @@ function Trash() {
   return (
     <div className="starred">
       <div className="message">
-        <h3>Starred</h3>
+        <h3>Bin</h3>
       </div>
       {(files && files.length > 0) || (folders && folders.length > 0) ? (
         <>

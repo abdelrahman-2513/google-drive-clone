@@ -17,6 +17,7 @@
   background: var(--color-card);
   border-radius: 10px;
   position: relative;
+  cursor: pointer;
 }
 .folder:hover {
   background: var(--color-active);

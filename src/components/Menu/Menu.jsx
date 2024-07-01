@@ -16,6 +16,7 @@ import {
   MdRestoreFromTrash,
 } from "react-icons/md";
 import TrashPopup from "../TrashPopup/TrashPopup";
+import { useNavigate, useParams } from "react-router";
 
 function Menu({ file }) {
   const [openMenu, setOpenMenu] = useState(false);
@@ -36,6 +37,8 @@ function Menu({ file }) {
 function SmallMenu({ file, setOpenMenu: setOpen }) {
   const [openpopUp, setOpenPopup] = useState(false);
   const menuRef = useRef();
+  const navigate = useNavigate();
+  const { folderId } = useParams();
   const queryClient = useQueryClient();
   const { user } = UserAuth();
   const starMutation = useMutation({
@@ -80,10 +83,13 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
     mutationFn: (data) => trashFile(data.id, !data.isTrashed, data.isFolder),
     onSuccess: () => {
       if (file.isFolder) {
-        queryClient.setQueryData(["folders", user?.email], (oldData) => {
-          let newData = oldData.filter((f) => f.id !== file.id);
-          return newData;
-        });
+        queryClient.setQueryData(
+          ["folders", user?.email, folderId || "0"],
+          (oldData) => {
+            let newData = oldData.filter((f) => f.id !== file.id);
+            return newData;
+          }
+        );
         queryClient.setQueryData(
           ["trashed-folders", user?.email],
           (oldData) => {
@@ -103,10 +109,13 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
           }
         );
       } else {
-        queryClient.setQueryData(["files", user?.email], (oldData) => {
-          let newData = oldData.filter((f) => f.id !== file.id);
-          return newData;
-        });
+        queryClient.setQueryData(
+          ["files", user?.email, folderId || "0"],
+          (oldData) => {
+            let newData = oldData.filter((f) => f.id !== file.id);
+            return newData;
+          }
+        );
         queryClient.setQueryData(["trashed-files", user?.email], (oldData) => {
           const newFile = { ...file, isTrashed: true };
           let newData = [newFile, ...oldData];
@@ -128,8 +137,11 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
     },
   });
   const handleOpen = () => {
-    if (file.isFolder) console.log("folder");
-    else window.open(file.fileLink, "_blank");
+    if (file.isFolder) {
+      console.log(file.id, file.folderName);
+      navigate(`/folders/${file.folderName}/${file.id}`);
+    } else window.open(file.fileLink, "_blank");
+    setOpen(false);
   };
   const handleDownload = () => {
     if (file.isFolder) console.log(folder);
@@ -139,6 +151,7 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
       link.download;
       link.click();
     }
+    setOpen(false);
   };
   const handleStarred = () => {
     console.log(`the file with id : ${file.id} is wanted to be starred`);
@@ -152,6 +165,7 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
       isStarred: file.isStarred,
       isFolder: file.isFolder,
     });
+    setOpen(false);
   };
   const handleTrashed = () => {
     console.log(`the file with id : ${file.id} is wanted to be starred`);
@@ -165,6 +179,7 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
       isTrashed: file.isTrashed,
       isFolder: file.isFolder,
     });
+    setOpen(false);
   };
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -215,7 +230,7 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
           </li>
         </ul>
       ) : (
-        <TrashPopup file={file} />
+        <TrashPopup file={file} setPopup={setOpen} />
       )}
       {openpopUp && <RenamePopup file={file} setPopup={setOpenPopup} />}
     </div>

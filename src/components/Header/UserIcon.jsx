@@ -7,7 +7,7 @@ export default function UserIcon() {
   const [open, setOpen] = useState(false);
   return (
     <div className="user-data" onClick={() => setOpen((t) => !t)}>
-      <img src={user.photoURL} alt={user.name} />
+      <img src={user?.photoURL} alt={user?.dipslayName} />
       {open && <UserMenu setOpen={setOpen} />}
     </div>
   );

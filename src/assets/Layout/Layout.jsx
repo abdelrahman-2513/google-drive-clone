@@ -14,6 +14,7 @@ import Starred from "../../Pages/Starred/Starred";
 import Login from "../../Pages/Login/Login";
 import Protected from "../../components/Protected/Protected";
 import Loading from "../../components/Loading/Loading";
+import FolderHome from "../../Pages/Home/FolderHome";
 
 function Layout() {
   // feed-------------------------------
@@ -44,6 +45,10 @@ function Layout() {
         { path: "/my-drive", element: <Protected children={<MyDrive />} /> },
         { path: "/trash", element: <Protected children={<Trash />} /> },
         { path: "/starred", element: <Protected children={<Starred />} /> },
+        {
+          path: "/folders/:folderName/:folderId",
+          element: <Protected children={<FolderHome />} />,
+        },
       ],
     },
 

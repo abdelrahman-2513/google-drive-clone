@@ -13,11 +13,11 @@ function Home() {
   const { folderId } = useParams();
   const { user } = UserAuth();
   const { data: files, isFetching: filesFetching } = useQuery({
-    queryKey: ["files", user?.email],
+    queryKey: ["files", user?.email, folderId || "0"],
     queryFn: () => getFiles(user?.email, folderId || 0),
   });
   const { data: folders, isFetching: foldersFetching } = useQuery({
-    queryKey: ["folders", user?.email],
+    queryKey: ["folders", user?.email, folderId || "0"],
     queryFn: () => getFolders(user?.email, folderId || 0),
   });
 

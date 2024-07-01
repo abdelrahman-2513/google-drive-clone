@@ -99,8 +99,8 @@ const NavBar = () => {
           <TiCloudStorageOutline className="mini-icon" />
           Storage
         </div>
-        <progress className="progress" value={data} max={100}></progress>
-        <div className="data">{data}GB out of 100GB</div>
+        <progress className="progress" value={data} max={5}></progress>
+        <div className="data">{data ? data : "..."}GB out of 5GB</div>
       </div>
     </div>
   );

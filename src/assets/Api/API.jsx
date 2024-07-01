@@ -97,6 +97,57 @@ export const getFolders = async (userEmail, folderId) => {
     return data;
   } else return [];
 };
+export const searchFolders = async (userEmail, searchQuery) => {
+  let foldersCollection = collection(db, "folders");
+  let data = [];
+
+  if (userEmail) {
+    let foldersQuery;
+    console.log("From search folders");
+    foldersQuery = query(
+      foldersCollection,
+      where("userEmail", "==", userEmail),
+      where("isFolder", "==", true),
+      where("isTrashed", "==", false)
+    );
+    const querySnapshot = await getDocs(foldersQuery);
+    data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log(data);
+    if (searchQuery) {
+      data = data.filter((folder) =>
+        folder.folderName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      console.log("new Data: ", data);
+    }
+    return data;
+  } else return [];
+};
+
+export const searchFiles = async (userEmail, searchQuery) => {
+  let filesCollection = collection(db, "files");
+  let data = [];
+
+  if (userEmail) {
+    let filesQuery;
+    console.log("From search files");
+    filesQuery = query(
+      filesCollection,
+      where("userEmail", "==", userEmail),
+      where("isFolder", "==", false),
+      where("isTrashed", "==", false)
+    );
+    const querySnapshot = await getDocs(filesQuery);
+    data = querySnapshot.docs.map((doc) => ({ ...doc.data() })) || [];
+    console.log(data);
+    if (searchQuery) {
+      data = data.filter((file) =>
+        file.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    return data;
+  } else return [];
+};
 export const getStarredFiles = async (userEmail) => {
   let filesCollection = collection(db, "files");
   let data = [];

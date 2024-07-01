@@ -14,26 +14,35 @@ function RenamePopup({ setPopup, file }) {
     mutationFn: (data) => renameFile(data.id, data.newName, data.isFolder),
     onSuccess: () => {
       if (file.isFolder) {
-        queryClient.setQueryData(["folders", user?.email], (oldData) => {
-          let newData = oldData.map((f) =>
-            f.id === file.id
-              ? {
-                  ...f,
-                  folderName: folderName,
-                }
-              : f
-          );
-          return newData;
-        });
+        queryClient.setQueryData(
+          ["folders", user?.email, `${file.folderPath}`],
+          (oldData) => {
+            let newData = oldData.map((f) =>
+              f.id === file.id
+                ? {
+                    ...f,
+                    folderName: folderName,
+                  }
+                : f
+            );
+            return newData;
+          }
+        );
       } else {
-        queryClient.setQueryData(["files", user?.email], (oldData) => {
-          let newData = oldData.map((f) =>
-            f.id === file.id
-              ? { ...f, fileName: `${folderName}.${f.fileName.split(".")[1]}` }
-              : f
-          );
-          return newData;
-        });
+        queryClient.setQueryData(
+          ["files", user?.email, `${file.folderId}`],
+          (oldData) => {
+            let newData = oldData.map((f) =>
+              f.id === file.id
+                ? {
+                    ...f,
+                    fileName: `${folderName}.${f.fileName.split(".")[1]}`,
+                  }
+                : f
+            );
+            return newData;
+          }
+        );
       }
     },
     onError: (err) => {

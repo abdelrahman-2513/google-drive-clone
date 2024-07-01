@@ -2,24 +2,29 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import { useParams } from "react-router";
 
 function CreateFolderPopUp({ setPopup, uploadFolder }) {
   const menuRef = useRef();
   const { user } = UserAuth();
+  const { folderId } = useParams();
   const queryClient = useQueryClient();
   const [folderName, setFolderName] = useState("");
   const mutation = useMutation({
     mutationKey: ["create-folder"],
     mutationFn: uploadFolder,
     onSuccess: (data) => {
-      queryClient.setQueryData(["folders", user?.email], (oldData) => {
-        let newData = [data];
-        if (oldData) {
-          newData = [data, ...oldData];
+      queryClient.setQueryData(
+        ["folders", user?.email, folderId === null ? "0" : folderId],
+        (oldData) => {
+          let newData = [data];
+          if (oldData) {
+            newData = [data, ...oldData];
+          }
+          console.log(newData, data);
+          return newData;
         }
-        console.log(newData, data);
-        return newData;
-      });
+      );
     },
     onError: (err) => {
       console.log(err);

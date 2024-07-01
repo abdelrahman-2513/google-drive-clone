@@ -23,11 +23,14 @@ export default function AddNewBtn() {
     mutationKey: ["upload-file"],
     mutationFn: (file) => fileUpload(file, folderId, user.email, setProgress),
     onSuccess: (data) => {
-      queryClient.setQueryData(["files", user?.email], (oldData) => {
-        const newData = [data, ...oldData];
-        toast.success("File uploaded", { id: 1 });
-        return newData;
-      });
+      queryClient.setQueryData(
+        ["files", user?.email, folderId || "0"],
+        (oldData) => {
+          const newData = [data, ...oldData];
+          toast.success("File uploaded", { id: 1 });
+          return newData;
+        }
+      );
     },
     onError: (err) => {
       console.log(err);

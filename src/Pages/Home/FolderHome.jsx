@@ -1,36 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
-
 import Files from "../../components/Files/Files";
 import Folders from "../../components/Folders/Folders";
-import { searchFiles, searchFolders } from "../../assets/Api/API";
+import { getFiles, getFolders } from "../../assets/Api/API";
 import { UserAuth } from "../../context/AuthContext";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
+
 import NoContent from "../../components/no-content/NoContent";
-function useSearchQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-function MyDrive() {
-  const { folderId } = useParams();
+function FolderHome() {
+  const { folderId, folderName } = useParams();
   const { user } = UserAuth();
-  const query = useSearchQuery();
-  const search = query.get("search");
-  console.log(search);
   const { data: files, isFetching: filesFetching } = useQuery({
-    queryKey: ["search-files", user?.email, search === null ? "" : search],
-    queryFn: () => searchFiles(user?.email, search),
+    queryKey: ["files", user?.email, folderId],
+    queryFn: () => getFiles(user?.email, folderId || 0),
   });
   const { data: folders, isFetching: foldersFetching } = useQuery({
-    queryKey: ["search-folders", user?.email, search === null ? "" : search],
-    queryFn: () => searchFolders(user?.email, search),
+    queryKey: ["folders", user?.email, folderId],
+    queryFn: () => getFolders(user?.email, folderId || 0),
   });
+
   if (filesFetching || foldersFetching) {
     return <Loading />;
   }
+
   return (
-    <div className="my-drive">
+    <div className="home">
       <div className="message">
-        <h3>My Drive</h3>
+        <h3>{folderName}</h3>
       </div>
       {(files && files.length > 0) || (folders && folders.length > 0) ? (
         <>
@@ -42,10 +38,10 @@ function MyDrive() {
           </div>
         </>
       ) : (
-        <NoContent type={"search"} message={"No data found"} />
+        <NoContent type={"home"} message={"Add files or folders"} />
       )}
     </div>
   );
 }
 
-export default MyDrive;
+export default FolderHome;
