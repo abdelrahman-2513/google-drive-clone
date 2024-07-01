@@ -37,21 +37,89 @@ function Layout() {
   const routes = [
     {
       path: "/",
-      element: <Protected children={<MainPage />} />,
+      element: (
+        <Protected
+          children={
+            <MainPage>
+              <Home />
+            </MainPage>
+          }
+        />
+      ),
 
-      children: [
-        { path: "/", element: <Protected children={<Home />} /> },
-        { path: "/home", element: <Protected children={<Home />} /> },
-        { path: "/my-drive", element: <Protected children={<MyDrive />} /> },
-        { path: "/trash", element: <Protected children={<Trash />} /> },
-        { path: "/starred", element: <Protected children={<Starred />} /> },
-        {
-          path: "/folders/:folderName/:folderId",
-          element: <Protected children={<FolderHome />} />,
-        },
-      ],
+      // children: [
+      //   { path: "/", element: <Protected children={<Home />} /> },
+      //   { path: "/home", element: <Protected children={<Home />} /> },
+      //   { path: "/my-drive", element: <Protected children={<MyDrive />} /> },
+      //   { path: "/trash", element: <Protected children={<Trash />} /> },
+      //   { path: "/starred", element: <Protected children={<Starred />} /> },
+      //   {
+      //     path: "/folders/:folderName/:folderId",
+      //     element: <Protected children={<FolderHome />} />,
+      //   },
+      // ],
     },
-
+    {
+      path: "/my-drive",
+      element: (
+        <Protected
+          children={
+            <MainPage>
+              <MyDrive />
+            </MainPage>
+          }
+        />
+      ),
+    },
+    {
+      path: "/trash",
+      element: (
+        <Protected
+          children={
+            <MainPage>
+              <Trash />
+            </MainPage>
+          }
+        />
+      ),
+    },
+    {
+      path: "/starred",
+      element: (
+        <Protected
+          children={
+            <MainPage>
+              <Starred />
+            </MainPage>
+          }
+        />
+      ),
+    },
+    {
+      path: "/folders/:folderName/:folderId",
+      element: (
+        <Protected
+          children={
+            <MainPage>
+              <FolderHome />
+            </MainPage>
+          }
+        />
+      ),
+    },
+    {
+      path: "/",
+      element: (
+        <Protected
+          children={
+            <MainPage>
+              <Home />
+            </MainPage>
+          }
+        />
+      ),
+    },
+    ,
     {
       path: "/login",
       element: <Login />,
