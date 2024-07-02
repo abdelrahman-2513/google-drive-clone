@@ -1,7 +1,7 @@
 import "./UserMenu.css";
+import React from "react";
 import { CgClose } from "react-icons/cg";
 import { UserAuth } from "../../context/AuthContext";
-
 import { FaSignOutAlt } from "react-icons/fa";
 import { useEffect, useRef } from "react";
 

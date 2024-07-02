@@ -1,4 +1,5 @@
 import "./File.css";
+import React from "react";
 import File from "./File";
 
 function Files({ files, isTrash = false }) {

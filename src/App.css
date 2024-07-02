@@ -80,6 +80,10 @@ p {
   background: var(--color-soft);
   color: white;
 }
+.main-container {
+  width: 100vw;
+  height: 100vh;
+}
 .container {
   background-color: white;
   padding: 15px;
@@ -114,6 +118,11 @@ a {
   text-align: center;
 }
 .overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.595);
 }
 .loading-indicator span {

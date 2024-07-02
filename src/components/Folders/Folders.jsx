@@ -1,4 +1,5 @@
 import "./Folder.css";
+import React from "react";
 import Folder from "./Folder";
 
 function Folders({ folders, isTrash = false }) {

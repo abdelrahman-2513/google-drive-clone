@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router";

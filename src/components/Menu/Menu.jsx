@@ -1,20 +1,15 @@
 import "./Menu.css";
+import React from "react";
 import { useEffect, useRef, useState } from "react";
-import { BiDownload, BiSolidRename } from "react-icons/bi";
+import { BiDownload } from "react-icons/bi";
 import { BsStarFill, BsThreeDotsVertical } from "react-icons/bs";
 import { CgRename } from "react-icons/cg";
-import { GrStarHalf } from "react-icons/gr";
 import { TbTrashFilled } from "react-icons/tb";
 import RenamePopup from "../RenamePopup/RenamePopup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { starFile, trashFile } from "../../assets/Api/firestore";
 import { UserAuth } from "../../context/AuthContext";
-import {
-  MdDeleteForever,
-  MdNotStarted,
-  MdRestore,
-  MdRestoreFromTrash,
-} from "react-icons/md";
+import { MdNotStarted } from "react-icons/md";
 import TrashPopup from "../TrashPopup/TrashPopup";
 import { useNavigate, useParams } from "react-router";
 

@@ -1,9 +1,13 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
-import Layout from "./assets/Layout/Layout";
+import React from "react";
+import { Suspense } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import Loading from "./components/Loading/Loading";
+// components --------------------------------------------------------------------
+const Layout = React.lazy(() => import("./assets/Layout/Layout"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +25,11 @@ function App() {
     <>
       <AuthContextProvider>
         <QueryClientProvider client={queryClient}>
-          <Layout />
+          <Suspense fallback={<Loading />}>
+            <div className="main-container">
+              <Layout />
+            </div>
+          </Suspense>
           <ReactQueryDevtools initialIsOpen={true} />
         </QueryClientProvider>
       </AuthContextProvider>

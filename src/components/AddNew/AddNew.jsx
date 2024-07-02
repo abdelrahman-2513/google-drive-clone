@@ -1,15 +1,15 @@
 import "./AddNew.css";
 import React, { useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import NewMenu from "./NewMenu";
-import CreateFolderPopUp from "./CreateFolderPopUp";
 import { addFolder } from "../../assets/Api/firestore";
 import { fileUpload } from "../../assets/Api/API";
 import { UserAuth } from "../../context/AuthContext";
 import { useParams } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import UploadProgress from "../progress/ProgressBar";
 import toast from "react-hot-toast";
+// Components ------------------------------------------------------------
+import NewMenu from "./NewMenu";
+import CreateFolderPopUp from "./CreateFolderPopUp";
 
 export default function AddNewBtn() {
   const queryClient = useQueryClient();
@@ -39,7 +39,7 @@ export default function AddNewBtn() {
 
   // Add new file
   const uploadFile = (file) => {
-    toast.loading("Start uploading file!", { id: 1 });
+    toast.loading(`Uploading file ${progress}%`, { id: 1 });
     if (user) {
       if (!file) return;
       mutation.mutate(file);
@@ -91,7 +91,6 @@ export default function AddNewBtn() {
           />
         )}
       </div>
-      {mutation.status === "pending" && <UploadProgress progress={progress} />}
     </>
   );
 }

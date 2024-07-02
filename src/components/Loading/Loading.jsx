@@ -1,10 +1,5 @@
-import {
-  BarLoader,
-  BounceLoader,
-  ClockLoader,
-  HashLoader,
-  PacmanLoader,
-} from "react-spinners";
+import React from "react";
+import { BounceLoader } from "react-spinners";
 
 function Loading() {
   return (

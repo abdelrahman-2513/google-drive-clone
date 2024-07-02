@@ -1,38 +1,39 @@
+import React from "react";
 import { useEffect, useRef } from "react";
 const apps = [
   {
     name: "Search",
-    image: "google.jpg",
+    image: "/google.jpg",
     url: "www.google.com",
   },
   {
     name: "Photos",
-    image: "photos.png",
+    image: "/photos.png",
     url: "www.google.com",
   },
   {
     name: "Maps",
-    image: "maps.png",
+    image: "/maps.png",
     url: "www.google.com",
   },
   {
     name: "Apps",
-    image: "play.png",
+    image: "/play.png",
     url: "www.google.com",
   },
   {
     name: "Meet",
-    image: "vedios.png",
+    image: "/vedios.png",
     url: "www.google.com",
   },
   {
     name: "Scripts",
-    image: "scripts.png",
+    image: "/scripts.png",
     url: "www.google.com",
   },
   {
     name: "Drive",
-    image: "drive.png",
+    image: "/drive.png",
     url: "www.google.com",
   },
 ];
@@ -56,7 +57,7 @@ function ItemsBox({ setShowMenu }) {
       <div className="apps">
         {apps.map((app, i) => {
           return (
-            <div className="app">
+            <div className="app" key={i}>
               <a href={app.url} target="blank">
                 <div className="app-img">
                   <img src={app.image} alt={app.name} />

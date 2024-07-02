@@ -1,3 +1,4 @@
+import React from "react";
 import { MdSearchOff } from "react-icons/md";
 import { TbTagStarred, TbTrashFilled } from "react-icons/tb";
 import { VscNewFolder } from "react-icons/vsc";

@@ -1,5 +1,6 @@
 // components ---------------------------------------------------------------------------------------------------------------------------------
 import "./Header.css";
+import React from "react";
 import SearchBar from "./SearchBar";
 import UserIcon from "./UserIcon";
 import MoreIcon from "./MoreIcon";

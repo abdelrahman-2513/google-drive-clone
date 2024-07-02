@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import React from "react";
 import Files from "../../components/Files/Files";
 import Folders from "../../components/Folders/Folders";
 import { UserAuth } from "../../context/AuthContext";

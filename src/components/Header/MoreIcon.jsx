@@ -1,4 +1,5 @@
-import { PiDotsNine, PiDotsNineBold } from "react-icons/pi";
+import React from "react";
+import { PiDotsNineBold } from "react-icons/pi";
 
 export default function MoreIcon({ setShow }) {
   return (

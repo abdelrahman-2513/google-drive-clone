@@ -1,4 +1,5 @@
 import "./NavBar.css";
+import React from "react";
 import { Link } from "react-router-dom";
 import AddNewBtn from "../AddNew/AddNew";
 import { HiHome } from "react-icons/hi";

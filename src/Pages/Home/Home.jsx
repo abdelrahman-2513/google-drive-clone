@@ -1,3 +1,4 @@
+import React from "react";
 import Files from "../../components/Files/Files";
 import Folders from "../../components/Folders/Folders";
 import { getFiles, getFolders } from "../../assets/Api/API";
@@ -5,9 +6,6 @@ import { UserAuth } from "../../context/AuthContext";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
-import { MdOutlineNoAdultContent } from "react-icons/md";
-import { BiBookContent } from "react-icons/bi";
-import { VscNewFolder } from "react-icons/vsc";
 import NoContent from "../../components/no-content/NoContent";
 function Home() {
   const { folderId } = useParams();
