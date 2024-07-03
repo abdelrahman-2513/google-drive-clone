@@ -13,7 +13,7 @@ import { MdNotStarted } from "react-icons/md";
 import TrashPopup from "../TrashPopup/TrashPopup";
 import { useNavigate, useParams } from "react-router";
 
-function Menu({ file }) {
+function Menu({ file, search }) {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
@@ -24,12 +24,14 @@ function Menu({ file }) {
           onClick={() => setOpenMenu((t) => !t)}
         />
       </div>
-      {openMenu && <SmallMenu file={file} setOpenMenu={setOpenMenu} />}
+      {openMenu && (
+        <SmallMenu file={file} setOpenMenu={setOpenMenu} search={search} />
+      )}
     </>
   );
 }
 
-function SmallMenu({ file, setOpenMenu: setOpen }) {
+function SmallMenu({ file, setOpenMenu: setOpen, search }) {
   const [openpopUp, setOpenPopup] = useState(false);
   const menuRef = useRef();
   const navigate = useNavigate();
@@ -79,24 +81,39 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
     onSuccess: () => {
       if (file.isFolder) {
         queryClient.setQueryData(
-          ["folders", user?.email, folderId || "0"],
+          ["folders", user?.email, `${file.parentId}`],
           (oldData) => {
-            let newData = oldData.filter((f) => f.id !== file.id);
-            return newData;
+            if (oldData) {
+              let newData = oldData.filter((f) => f.id !== file.id);
+              return newData;
+            }
           }
         );
         queryClient.setQueryData(
           ["trashed-folders", user?.email],
           (oldData) => {
-            const newFile = { ...file, isTrashed: true };
-            let newData = [newFile, ...oldData];
-            return newData;
+            if (oldData) {
+              const newFile = { ...file, isTrashed: true };
+              let newData = [newFile, ...oldData];
+              return newData;
+            }
           }
         );
         queryClient.setQueryData(
           ["starred-folders", user?.email],
           (oldData) => {
-            if (file.isStarred) {
+            if (file.isStarred && oldData) {
+              let newData = [];
+              newData = oldData.filter((f) => f.id !== file.id);
+              return newData;
+            }
+          }
+        );
+        queryClient.setQueryData(
+          ["search-folders", user?.email, search === null ? "" : search],
+          (oldData) => {
+            console.log(search, oldData);
+            if (oldData) {
               let newData = [];
               newData = oldData.filter((f) => f.id !== file.id);
               return newData;
@@ -105,24 +122,40 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
         );
       } else {
         queryClient.setQueryData(
-          ["files", user?.email, folderId || "0"],
+          ["files", user?.email, `${file.folderId}`],
           (oldData) => {
-            let newData = oldData.filter((f) => f.id !== file.id);
-            return newData;
+            if (oldData) {
+              let newData = oldData.filter((f) => f.id !== file.id);
+              return newData;
+            }
           }
         );
         queryClient.setQueryData(["trashed-files", user?.email], (oldData) => {
-          const newFile = { ...file, isTrashed: true };
-          let newData = [newFile, ...oldData];
-          return newData;
-        });
-        queryClient.setQueryData(["starred-files", user?.email], (oldData) => {
-          if (file.isStarred) {
-            let newData = [];
-            newData = oldData.filter((f) => f.id !== file.id);
+          if (oldData) {
+            const newFile = { ...file, isTrashed: true };
+            let newData = [newFile, ...oldData];
             return newData;
           }
         });
+        queryClient.setQueryData(["starred-files", user?.email], (oldData) => {
+          if (file.isStarred) {
+            if (oldData) {
+              let newData = [];
+              newData = oldData.filter((f) => f.id !== file.id);
+              return newData;
+            }
+          }
+        });
+        queryClient.setQueryData(
+          ["search-files", user?.email, search === null ? "" : search],
+          (oldData) => {
+            if (oldData) {
+              let newData = [];
+              newData = oldData.filter((f) => f.id !== file.id);
+              return newData;
+            }
+          }
+        );
       }
     },
     onError: (err) => {
@@ -227,7 +260,9 @@ function SmallMenu({ file, setOpenMenu: setOpen }) {
       ) : (
         <TrashPopup file={file} setPopup={setOpen} />
       )}
-      {openpopUp && <RenamePopup file={file} setPopup={setOpenPopup} />}
+      {openpopUp && (
+        <RenamePopup file={file} setPopup={setOpenPopup} search={search} />
+      )}
     </div>
   );
 }

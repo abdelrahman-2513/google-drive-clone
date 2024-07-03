@@ -2,7 +2,7 @@ import "./File.css";
 import React from "react";
 import File from "./File";
 
-function Files({ files, isTrash = false }) {
+function Files({ files, isTrash = false, search }) {
   return (
     <div className="files-container">
       {files && files.length > 0 && (
@@ -14,7 +14,7 @@ function Files({ files, isTrash = false }) {
                 return file.isTrashed && !isTrash ? (
                   <></>
                 ) : (
-                  <File file={file} key={i} />
+                  <File file={file} key={i} search={search} />
                 );
               })}
             </>

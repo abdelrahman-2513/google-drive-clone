@@ -5,7 +5,7 @@ import { UserAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { renameFile } from "../../assets/Api/firestore";
 
-function RenamePopup({ setPopup, file }) {
+function RenamePopup({ setPopup, file, search }) {
   const menuRef = useRef();
   const [folderName, setFolderName] = useState("");
   const { user } = UserAuth();
@@ -18,30 +18,66 @@ function RenamePopup({ setPopup, file }) {
         queryClient.setQueryData(
           ["folders", user?.email, `${file.folderPath}`],
           (oldData) => {
-            let newData = oldData.map((f) =>
-              f.id === file.id
-                ? {
-                    ...f,
-                    folderName: folderName,
-                  }
-                : f
-            );
-            return newData;
+            if (oldData) {
+              let newData = oldData.map((f) =>
+                f.id === file.id
+                  ? {
+                      ...f,
+                      folderName: folderName,
+                    }
+                  : f
+              );
+              return newData;
+            }
+          }
+        );
+        queryClient.setQueryData(
+          ["search-folders", user?.email, search === null ? "" : search],
+          (oldData) => {
+            if (oldData) {
+              let newData = oldData.map((f) =>
+                f.id === file.id
+                  ? {
+                      ...f,
+                      folderName: folderName,
+                    }
+                  : f
+              );
+              return newData;
+            }
           }
         );
       } else {
         queryClient.setQueryData(
           ["files", user?.email, `${file.folderId}`],
           (oldData) => {
-            let newData = oldData.map((f) =>
-              f.id === file.id
-                ? {
-                    ...f,
-                    fileName: `${folderName}.${f.fileName.split(".")[1]}`,
-                  }
-                : f
-            );
-            return newData;
+            if (oldData) {
+              let newData = oldData.map((f) =>
+                f.id === file.id
+                  ? {
+                      ...f,
+                      fileName: `${folderName}.${f.fileName.split(".")[1]}`,
+                    }
+                  : f
+              );
+              return newData;
+            }
+          }
+        );
+        queryClient.setQueryData(
+          ["search-files", user?.email, search === null ? "" : search],
+          (oldData) => {
+            if (oldData) {
+              let newData = oldData.map((f) =>
+                f.id === file.id
+                  ? {
+                      ...f,
+                      fileName: `${folderName}.${f.fileName.split(".")[1]}`,
+                    }
+                  : f
+              );
+              return newData;
+            }
           }
         );
       }
@@ -77,7 +113,9 @@ function RenamePopup({ setPopup, file }) {
     console.log(`file with id ${file.id} renamed to ${folderName}`);
     mutation.mutate({
       id: file.id,
-      newName: folderName,
+      newName: file.isFolder
+        ? folderName
+        : `${folderName}.${file.fileName.split(".")[1]}`,
       isFolder: file.isFolder,
     });
     setPopup(false);

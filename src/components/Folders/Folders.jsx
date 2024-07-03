@@ -2,7 +2,7 @@ import "./Folder.css";
 import React from "react";
 import Folder from "./Folder";
 
-function Folders({ folders, isTrash = false }) {
+function Folders({ folders, isTrash = false, search }) {
   return (
     <div className="folders-container">
       {folders && folders.length > 0 && (
@@ -14,7 +14,7 @@ function Folders({ folders, isTrash = false }) {
                 return folder.isTrashed && !isTrash ? (
                   <></>
                 ) : (
-                  <Folder folder={folder} key={i} />
+                  <Folder folder={folder} key={i} search={search} />
                 );
               })}
             </>

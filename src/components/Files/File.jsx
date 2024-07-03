@@ -2,7 +2,7 @@ import React from "react";
 import Menu from "../Menu/Menu";
 import GetFileIcon from "./fileIcons";
 
-function File({ file }) {
+function File({ file, search }) {
   const handleOpenFile = () => {
     console.log(file.fileLink);
     window.open(file.fileLink, "_blank");
@@ -14,7 +14,7 @@ function File({ file }) {
         <div className="name">
           <h5>{file.fileName}</h5>
         </div>
-        <Menu file={file} />
+        <Menu file={file} search={search} />
       </div>
       <div className="file-content">
         {file.type.split("/")[0] === "image" && (

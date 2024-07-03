@@ -35,10 +35,10 @@ function MyDrive() {
       {(files && files.length > 0) || (folders && folders.length > 0) ? (
         <>
           <div className="folders-content">
-            <Folders folders={folders} />
+            <Folders folders={folders} search={search} />
           </div>
           <div className="files-content">
-            <Files files={files} />
+            <Files files={files} search={search} />
           </div>
         </>
       ) : (
