@@ -4,7 +4,7 @@ This project is a Google Drive clone built using React JS, Vite, and deployed on
 
 ## Features
 
-- File Upload and Download: Upload files to the drive and download them when needed.
+- File Upload: Upload files to the drive.
 - File Preview: Preview files without downloading.
 - File Search: Search for files by name.
 - Google Authentication: Securely log in using Google accounts.
